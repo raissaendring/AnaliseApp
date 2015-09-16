@@ -1,0 +1,46 @@
+<resources>
+    <string name="app_name">AnaliseApp</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+    <string-array name="perguntas">
+        <item>Insira o tamanho da área potencialmente contaminada.</item>
+        <item>É possível notar a presença de vetores como ratos, baratas, mosquitos?</item>
+        <item>É possível notar a presença de animais de médio e grande porte como cães, gatos, pombos, urubus, cavalos?</item>
+        <item>Há a presença de Resíduos de Serviço de Saúde?</item>
+        <item>Há a presença de Resíduos Domiciliares?</item>
+        <item>Há a presença de Resíduos Perigosos provenientes da construção civil como tintas, solventes e outros?</item>
+        <item>Há a presença de outros tipos de resíduos como Resíduos Volumosos, Resíduos Verdes?</item>
+        <item>É possível notar o carreamento desses materiais dispostos inadequadamente através da ação da chuva?</item>
+        <item>O ponto de disposição inadequada altera significativamente a paisagem em questão?</item>
+        <item>Existe o tráfego de veículos de grande porte para o transporte de Resíduos de Construção e Demolição?</item>
+        <item>As pessoas costumam transitar no local?</item>
+        <item>A disposição inadequada desses resíduos está ocupando vias e logradouros públicos?</item>
+        <item>Há ocorrência de atividades ilícitas no local facilitada pela disposição inadequada desses resíduos?</item>
+    </string-array>
+
+    <string name="tirar_foto">Tire uma foto da área que está sendo analisada.</string>
+    <string name="btn_tirar_foto">Tirar foto</string>
+    <string name="btn_finalizar">Finalizar análise de área</string>
+    <string name="btn_enviar">Enviar análise</string>
+    <string name="btn_comecar">Começar Análise</string>
+    <string name="btn_salvar">Salvar análise</string>
+    
+    <string name="txt_inicial">Lembre-se de ativar o GPS do seu dispositivo para que seja possível a localização automática.</string>
+    <string name="txt_insira_nome">Entre com seu nome para iniciar:</string>
+
+    <string name="email_msg">Email enviado a partir do aplicativo de Análise de Resíduos de Construção e Demolição</string>
+    <string name="email_subject">Nova análise feita</string>
+
+    <string name="msg_email_enviado">Sua análise foi enviada.</string>
+    <string name="msg_email_n_enviado">Não foi possível enviar resultados no momento. Tente novamente mais tarde.</string>
+    <string name="msg_enviando">Enviando resultados...</string>
+    <string name="msg_sem_conexao">Sem conexão</string>
+    <string name="msg_nome_vazio">Preencha seu nome.</string>
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_final">FinalActivity</string>
+    <string name="title_activity_picture">PictureActivity</string>
+    <string name="title_activity_main">MainActivity</string>
+</resources>

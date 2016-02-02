@@ -1,4 +1,4 @@
-package com.raissa.analiseapp;
+package com.raissa.analiseapp.Activities;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -6,13 +6,24 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.raissa.analiseapp.Constants;
+import com.raissa.analiseapp.DataBase.Banco;
+import com.raissa.analiseapp.ItemCadastro;
+import com.raissa.analiseapp.Mail;
+import com.raissa.analiseapp.MyPrefs_;
+import com.raissa.analiseapp.R;
+import com.raissa.analiseapp.Utils;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Background;
@@ -34,18 +45,22 @@ import java.util.Calendar;
 import java.util.Locale;
 
 @EActivity(R.layout.activity_picture)
-public class PictureActivity extends Activity {
+public class PictureActivity extends AppCompatActivity {
 
     @ViewById
     Button btnTirarFoto;
     @ViewById
     ImageView foto;
-    //@ViewById
-    //Button btnFinalizar;
+    @ViewById
+    Toolbar toolbar;
     @ViewById
     Button btnEnviar;
-    //@ViewById
-    //Button btnSalvar;
+    @ViewById
+    Button btnSalvar;
+    @ViewById
+    LinearLayout btnsFinal;
+    @ViewById
+    EditText referencia;
 
     @Extra
     ArrayList<ItemQuestao> listQuestoes;
@@ -55,6 +70,8 @@ public class PictureActivity extends Activity {
     double longitude;
     @Extra
     String nomeFiscal;
+    @Extra
+    String matriculaFiscal;
 
     @Pref
     MyPrefs_ prefs;
@@ -65,12 +82,21 @@ public class PictureActivity extends Activity {
     String txtPath;
     String tablePath;
     ProgressDialog progress;
+    Banco bd;
 
     @AfterViews
     void init(){
+        bd = new Banco(this);
+        initToolbar();
         progress = new ProgressDialog(this);
         File folder = new File(folderPath);
         if(!folder.exists()) folder.mkdirs();
+    }
+
+    void initToolbar(){
+        toolbar.setTitle(R.string.app_name);
+        toolbar.setTitleTextColor(getResources().getColor(R.color.white));
+        setSupportActionBar(toolbar);
     }
 
     @Click
@@ -87,12 +113,17 @@ public class PictureActivity extends Activity {
     @OnActivityResult(1001)
     void tirouFoto(int resultCode){
         if(resultCode==RESULT_OK) {
-            btnEnviar.setVisibility(View.VISIBLE);
-            Log.d("ANALISE APP","Img Path = "+imgPath);
+            btnsFinal.setVisibility(View.VISIBLE);
+            Log.d("ANALISE APP", "Img Path = " + imgPath);
             sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("file://" + Environment.getExternalStorageDirectory().getAbsolutePath())));
-            File fileImg = new File(imgPath);
-            Uri uriImg = Uri.fromFile(fileImg);
-            Glide.with(this).load(uriImg).asBitmap().into(foto);
+            try {
+                File fileImg = new File(imgPath);
+                Utils.resizeImageFile(fileImg);
+                Uri uriImg = Uri.fromFile(fileImg);
+                Glide.with(this).load(uriImg).asBitmap().into(foto);
+            }catch (Exception e){
+                showToast("Erro ao processar foto, por favor tente novamente.");
+            }
         }
     }
 
@@ -142,9 +173,9 @@ public class PictureActivity extends Activity {
 
     String situacaoFinal(){
         int soma=valorFinal();
-        if(soma>=23){
+        if(soma>=30){
             return "Vermelho";
-        }else if(soma > 18){
+        }else if(soma > 22){
             return "Amarelo";
         }else{
             return "Verde";
@@ -154,7 +185,7 @@ public class PictureActivity extends Activity {
     int valorFinal(){
         int soma = 0;
         for(ItemQuestao q : listQuestoes){
-            soma += q.situacao;
+            soma += q.getSituacao();
         }
         return soma;
     }
@@ -175,6 +206,8 @@ public class PictureActivity extends Activity {
         showProgress();
         String body = getString(R.string.email_msg);
         body += "\n\nNome do Fiscal: " + nomeFiscal;
+        body += "\nMatrícula: " + matriculaFiscal;
+        body += "\nPonto de referência do local: " + referencia.getText().toString();
         Mail mail = new Mail(Constants.EMAIL,Constants.SENHA);
         String[] to = {Constants.EMAIL};
         mail.setTo(to);
@@ -206,11 +239,26 @@ public class PictureActivity extends Activity {
         }
     }
 
+    @Click
+    void btnSalvarClicked(){
+        Calendar c = Calendar.getInstance(Locale.ENGLISH);
+        String id = String.valueOf(c.getTimeInMillis());
+        if(bd==null){
+            Toast.makeText(this,R.string.msg_salvar_fail,Toast.LENGTH_SHORT).show();
+        }else{
+            createTxtFile();
+            createTabela();
+            ItemCadastro cadastro = new ItemCadastro(id,nomeFiscal,matriculaFiscal,imgPath,txtPath,tablePath);
+            bd.inserir(cadastro);
+            finish();
+            MainActivity_.intent(this).start();
+        }
+    }
+
     @UiThread
     void showProgress(){
         progress.setCancelable(false);
         progress.setCanceledOnTouchOutside(false);
-        progress = new ProgressDialog(this);
         progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progress.setMessage(getString(R.string.msg_enviando));
         progress.show();

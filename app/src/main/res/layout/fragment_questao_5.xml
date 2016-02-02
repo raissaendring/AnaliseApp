@@ -65,6 +65,29 @@
                         android:layout_weight="1"
                         android:id="@+id/pouco"/>
                 </RadioGroup>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/pergunta_pneus"
+                    android:id="@+id/pergunta_pneus"/>
+                <RadioGroup
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:id="@+id/resp_pneus">
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/sim"
+                        android:layout_weight="1"
+                        android:id="@+id/simP"/>
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/nao"
+                        android:layout_weight="1"
+                        android:id="@+id/naoP"/>
+                </RadioGroup>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -98,4 +121,5 @@
             android:layout_gravity="right"
             android:visibility="gone"/>
     </FrameLayout>
+
 </LinearLayout>

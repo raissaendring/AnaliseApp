@@ -1,43 +1,81 @@
 <resources>
-    <string name="app_name">AnaliseApp</string>
+    <string name="app_name">Caça-Entulho</string>
+    <string name="bd_name">bd_caca_entulho_app</string>
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
 
+
     <string-array name="perguntas">
         <item>Insira o tamanho da área potencialmente contaminada.</item>
-        <item>É possível notar a presença de vetores como ratos, baratas, mosquitos?</item>
+        <item>É possível notar a presença de pequenos vetores como ratos, baratas, moscas ou mosquitos ou, ainda, de animais peçonhentos como cobras ou escorpiões?</item>
         <item>É possível notar a presença de animais de médio e grande porte como cães, gatos, pombos, urubus, cavalos?</item>
         <item>Há a presença de Resíduos de Serviço de Saúde?</item>
         <item>Há a presença de Resíduos Domiciliares?</item>
         <item>Há a presença de Resíduos Perigosos provenientes da construção civil como tintas, solventes e outros?</item>
-        <item>Há a presença de outros tipos de resíduos como Resíduos Volumosos, Resíduos Verdes?</item>
-        <item>É possível notar o carreamento desses materiais dispostos inadequadamente através da ação da chuva?</item>
-        <item>O ponto de disposição inadequada altera significativamente a paisagem em questão?</item>
-        <item>Existe o tráfego de veículos de grande porte para o transporte de Resíduos de Construção e Demolição?</item>
+        <item>Há a presença de outros tipos de resíduos como Resíduos Volumosos, Resíduos Verdes, Resíduos Eletroeletrônicos?</item>
+        <item>É possível notar o entupimento dos elementos de drenagem causado pela disposição inadequada do resíduo?</item>
+        <item>O ponto está localizado próximo a núcleos urbanos?</item>
+        <item>Existe o tráfego de veículos no local?</item>
         <item>As pessoas costumam transitar no local?</item>
-        <item>A disposição inadequada desses resíduos está ocupando vias e logradouros públicos?</item>
-        <item>Há ocorrência de atividades ilícitas no local facilitada pela disposição inadequada desses resíduos?</item>
+        <item>Há a ocorrência de atividades ilícitas no local?</item>
+        <item>Este ponto encontra-se próximo de creches, escolas, unidades de saúde, hospitais?</item>
     </string-array>
 
-    <string name="tirar_foto">Tire uma foto da área que está sendo analisada.</string>
-    <string name="btn_tirar_foto">Tirar foto</string>
-    <string name="btn_finalizar">Finalizar análise de área</string>
-    <string name="btn_enviar">Enviar análise</string>
-    <string name="btn_comecar">Começar Análise</string>
-    <string name="btn_salvar">Salvar análise</string>
+    <string name="pergunta9">9 - O ponto está localizado próximo a núcleos urbanos?</string>
+    <string name="pergunta9_1">Existe o tráfego de veículos no local?</string>
+    <string name="pergunta9_2">As pessoas costumam transitar no local?</string>
+    <string name="pergunta9_3">Há a ocorrência de atividades ilícitas no local?</string>
+    <string name="pergunta9_4">Este ponto encontra-se próximo de creches, escolas, unidades de saúde, hospitais?</string>
     
-    <string name="txt_inicial">Lembre-se de ativar o GPS do seu dispositivo para que seja possível a localização automática.</string>
-    <string name="txt_insira_nome">Entre com seu nome para iniciar:</string>
+    <string name="pergunta_pneus">Além disso, pode-se notar a presença de pneus?</string>
+    
+    <string name="dica_foto">A foto deve abordar o que há de mais relevante no local.</string>
+    <string name="hint_foto_ref">Ponto de referência</string>
 
+    <string name="tirar_foto">Para finalizar o cadastro, tire uma foto da área.</string>
+    <string name="btn_tirar_foto">Tirar foto</string>
+    <string name="btn_finalizar">Finalizar cadatro de área</string>
+    <string name="btn_enviar">Enviar cadastro</string>
+    <string name="btn_comecar">Começar cadastro</string>
+    <string name="btn_salvar">Salvar cadastro</string>
+    <string name="btn_anterior">Anterior</string>
+    <string name="btn_prox">Próxima</string>
+    <string name="btn_iniciar_cadastro">Iniciar novo cadastro</string>
+    <string name="btn_enviar_cadastro_salvo">Enviar cadastros salvos</string>
+
+    <string name="finalizar">Finalizar</string>
+    <string name="sim">Sim</string>
+    <string name="nao">Não</string>
+
+    <string name="perg_intensidade">Qual intensidade?</string>
+    <string name="resp_pouco">Pouco</string>
+    <string name="resp_muito">Muito</string>
+
+    <string name="txt_apresentacao">Este aplicativo tem por objetivo o cadastramento e a identificação de áreas de disposição inadequada de resíduos de construção e demolição, visando facilitar a gestão dos mesmos.</string>
+    <string name="txt_gps_dialog">Lembre-se de ativar o GPS do seu dispositivo para que seja possível a captura dos dados de localização geográfica. Mantenha também os dados movéis ligados, para melhor precisão.</string>
+    <string name="txt_insira_nome">Entre com seu nome completo para a identificação do funcionário:</string>
+    <string name="txt_insira_matricula">Entre com sua matrícula:</string>
     <string name="email_msg">Email enviado a partir do aplicativo de Análise de Resíduos de Construção e Demolição</string>
     <string name="email_subject">Nova análise feita</string>
 
+    <string name="pergunta_incompleta">Responda à pergunta completamente.</string>
+    
+    <string name="cadastro_completo">O cadastro foi efetuado com sucesso!</string>
+
     <string name="msg_email_enviado">Sua análise foi enviada.</string>
     <string name="msg_email_n_enviado">Não foi possível enviar resultados no momento. Tente novamente mais tarde.</string>
-    <string name="msg_enviando">Enviando resultados...</string>
+    <string name="msg_enviando">Enviando resultados... </string>
+    <string name="msg_demora">Este processo pode demorar alguns instantes.</string>
     <string name="msg_sem_conexao">Sem conexão</string>
-    <string name="msg_nome_vazio">Preencha seu nome.</string>
+    <string name="msg_nome_vazio">Preencha seu nome</string>
+    <string name="msg_matricula_vazia">Preencha sua matrícula</string>
+    <string name="msg_gps_desativado">O GPS do seu dispositivo se encontra desativado. Lembre-se que este deve estar em modo "Alta Precisão". Ative-o para continuar.</string>
+    <string name="msg_salvar_fail">Não foi possível salvar o cadastro</string>
+    <string name="msg_zero_cadastros_salvos">Não há cadastros salvos</string>
+
+    <string name="calculadora_hint">Utilize a calculadora abaixo caso necessário.</string>
+
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_final">FinalActivity</string>

@@ -1,12 +1,6 @@
-package com.raissa.analiseapp;
+package com.raissa.analiseapp.Activities;
 
 import android.content.Context;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.RadioGroup;
-import android.widget.TextView;
-
-import org.parceler.Parcel;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -16,12 +10,13 @@ import java.util.ArrayList;
  */
 
 public class ItemQuestao implements Serializable{
-    enum respostasP {Sim, Nao;
+    enum respostasP {Sim, Nao, Indiferente;
 
         @Override
         public String toString() {
             if(this==Sim) return "Sim";
-            else return "Não";
+            else if(this==Nao){ return "Não";}
+            else return "";
         }
     }
     enum respostasS {Pouco,Muito,Indiferente;
@@ -47,6 +42,39 @@ public class ItemQuestao implements Serializable{
     int[] classificacoes;
     float tamanho;
 
+
+    public Context getContext() {
+        return context;
+    }
+
+    public void setContext(Context context) {
+        this.context = context;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setPerguntaPrincipal(String perguntaPrincipal) {
+        this.perguntaPrincipal = perguntaPrincipal;
+    }
+
+    public void setPergutaSecundária(String pergutaSecundária) {
+        this.pergutaSecundária = pergutaSecundária;
+    }
+
+    public int[] getClassificacoes() {
+        return classificacoes;
+    }
+
+    public void setClassificacoes(int[] classificacoes) {
+        this.classificacoes = classificacoes;
+    }
+
     public ItemQuestao(){}
 
     public void setTamanho(float tamanho) {
@@ -63,6 +91,8 @@ public class ItemQuestao implements Serializable{
         this.perguntaPrincipal = pp;
         this.pergutaSecundária=ps;
         this.situacao=0;
+        this.respostaPrimaria=respostasP.Indiferente;
+        this.respostaSecundaria=respostasS.Indiferente;
         context = c;
         tamanho=0;
 
@@ -115,11 +145,13 @@ public class ItemQuestao implements Serializable{
         String msg = "";
 
         if(id>0) {
-            msg = (id + 1) + " - " + perguntaPrincipal + "\n" + respostaPrimaria.toString() + "\n" ;
-            if(respostaPrimaria==respostasP.Sim) {
-                msg +=  pergutaSecundária + "\n" + respostaSecundaria.toString() + "\n";
+            if(respostaPrimaria!=respostasP.Indiferente) {
+                msg = (id + 1) + " - " + perguntaPrincipal + "\n" + respostaPrimaria.toString() + "\n";
+                if (respostaPrimaria == respostasP.Sim) {
+                    msg += pergutaSecundária + "\n" + respostaSecundaria.toString() + "\n";
+                }
+                msg += "Classificação: " + situacao + "\n\n";
             }
-            msg += "Classificação: " + situacao + "\n\n";
         }else{
             msg = (id+1) + " - " + perguntaPrincipal + "\n" + tamanho + " m2" + "\n\n";
         }

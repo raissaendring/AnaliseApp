@@ -4,12 +4,19 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
+        <com.raissa.analiseapp.MyViewPager
+            android:layout_marginTop="?android:attr/actionBarSize"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/view_pager">
+        </com.raissa.analiseapp.MyViewPager>
 
-    <com.raissa.analiseapp.MyViewPager
+
+    <android.support.v7.widget.Toolbar
+        android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/view_pager">
-    </com.raissa.analiseapp.MyViewPager>
+        android:background="@color/primary"
+        android:id="@+id/toolbar"/>
 
 
 </FrameLayout>

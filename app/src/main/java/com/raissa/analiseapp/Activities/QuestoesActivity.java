@@ -1,16 +1,17 @@
-package com.raissa.analiseapp;
+package com.raissa.analiseapp.Activities;
 
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
-import android.content.Intent;
+import android.content.res.TypedArray;
 import android.location.Location;
-import android.location.LocationManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+
+import com.raissa.analiseapp.MyViewPager;
+import com.raissa.analiseapp.R;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Background;
@@ -29,12 +30,18 @@ import rx.functions.Action1;
 public class QuestoesActivity extends AppCompatActivity implements QuestaoFragment.InterfaceQuestoes {
     @ViewById
     transient MyViewPager viewPager;
+    @ViewById
+    Toolbar toolbar;
 
     @StringArrayRes
     String[] perguntas;
 
+
+    @Extra
+    String matriculaFiscal;
     @Extra
     String nomeFiscal;
+
 
     ArrayList<ItemQuestao> questoes;
 
@@ -45,12 +52,15 @@ public class QuestoesActivity extends AppCompatActivity implements QuestaoFragme
     double latitude;
     double longitude;
 
-
+    TypedArray dicas;
+    TypedArray imagens;
 
     public QuestoesActivity(){}
 
     @AfterViews
     void init(){
+        dicas = getResources().obtainTypedArray(R.array.dicas);
+        imagens = getResources().obtainTypedArray(R.array.imagens);
         progressDialog = new ProgressDialog(this);
         position=0;
 
@@ -58,9 +68,16 @@ public class QuestoesActivity extends AppCompatActivity implements QuestaoFragme
         getLocation();
 
         initListaQuestoes();
+        initToolbar();
 
         MyPagerAdapter adapter = new MyPagerAdapter(getSupportFragmentManager());
         viewPager.setAdapter(adapter);
+    }
+
+    void initToolbar(){
+        toolbar.setTitle(R.string.app_name);
+        toolbar.setTitleTextColor(getResources().getColor(R.color.white));
+        setSupportActionBar(toolbar);
     }
 
     void initListaQuestoes(){
@@ -118,6 +135,7 @@ public class QuestoesActivity extends AppCompatActivity implements QuestaoFragme
                 .latitude(latitude)
                 .longitude(longitude)
                 .nomeFiscal(nomeFiscal)
+                .matriculaFiscal(matriculaFiscal)
                 .start();
         //FinalActivity_.intent(this).questoes(questoes).start();
     }
@@ -153,7 +171,12 @@ public class QuestoesActivity extends AppCompatActivity implements QuestaoFragme
 
         @Override
         public Fragment getItem(int position) {
-            return QuestaoFragment_.builder().listQuestoes(questoes).position(position).build();
+            Log.d("ANALISE APP","IMAGENS ARRAY "+imagens.length()+ " POSITION " + position);
+            return QuestaoFragment_.builder().listQuestoes(questoes)
+                    .position(position)
+                    .dicas(getResources().getStringArray(dicas.getResourceId(position,0)))
+                    .imgId(imagens.getResourceId(position,0))
+                    .build();
         }
 
 

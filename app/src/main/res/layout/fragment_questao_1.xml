@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:id="@+id/layout_pergunta_tam">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:text="1 - Insira o tamanho da área potencialmente contaminada."
+            android:id="@+id/pergunta_tam"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:id="@+id/tamanho"
+                android:inputType="numberDecimal"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="m²"/>
+        </LinearLayout>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/layout_dicas"
+        android:orientation="vertical"></LinearLayout>
+    <include layout="@layout/calculadora"/>
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/imagem"
+        android:adjustViewBounds="true"/>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            style="@style/ButtonStyle"
+            android:id="@+id/botaoAnt"
+            android:text="@string/btn_anterior"/>
+        <Button
+            style="@style/ButtonStyle"
+            android:id="@+id/botaoProx"
+            android:text="@string/btn_prox"
+            android:layout_gravity="right"/>
+        <Button
+            style="@style/ButtonStyle"
+            android:id="@+id/botaoFinalizar"
+            android:text="@string/btn_finalizar"
+            android:layout_gravity="right"
+            android:visibility="gone"/>
+    </FrameLayout>
+</LinearLayout>

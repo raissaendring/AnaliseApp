@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="dicas1">
+        <item>A área potencialmente contaminada representa toda a área de influência direta do resíduo. Caso existam vários pontos pequenos, considere-os como um único ponto.</item>
+    </string-array>
+    <string-array name="dicas2">
+        <item>A intensidade pode ser avaliada segundo o incômodo relacionado à presença desses pequenos vetores.</item>
+    </string-array>
+    <string-array name="dicas3">
+        <item>Considere acima de 3 unidades uma alta intensidade.</item>
+    </string-array>
+    <string-array name="dicas4">
+        <item>Procure por seringas, remédios, bisturis, ampolas, algodão, gaze, curativos...</item>
+        <item>A intensidade pode ser caracterizada segundo a predominância desse resíduo no local.</item>
+    </string-array>
+    <string-array name="dicas5">
+        <item>Procure por lixo doméstico, restos de comida, embalagens, fraldas plásticas...</item>
+        <item>A intensidade pode ser caracterizada segundo a predominância desse resíduo no local.</item>
+    </string-array>
+    <string-array name="dicas6">
+        <item>Procure por latas de tinta ou solventes, telha de amianto, embalagens de graxas ou óleos...</item>
+        <item>A intensidade pode ser caracterizada segundo a predominância desse resíduo no local.</item>
+    </string-array>
+    <string-array name="dicas7">
+        <item>Procure por móveis, eletrodomésticos, restos de poda...</item>
+        <item>A intensidade pode ser caracterizada segundo a predominância desse resíduo no local.</item>
+    </string-array>
+    <string-array name="dicas8">
+        <item>Observe bocas de lobo, sarjetas, galerias, rios e córregos...</item>
+    </string-array>
+    <string-array name="dicas9">
+        <item>Observe se há bitucas de cigarro, seringas, cachimbos, camisinhas... Você também pode perguntar a um morador local</item>
+    </string-array>
+
+    <array name="dicas">
+        <item>@array/dicas1</item>
+        <item>@array/dicas2</item>
+        <item>@array/dicas3</item>
+        <item>@array/dicas4</item>
+        <item>@array/dicas5</item>
+        <item>@array/dicas6</item>
+        <item>@array/dicas7</item>
+        <item>@array/dicas8</item>
+        <item>@array/dicas9</item>
+    </array>
+
+    <array name="imagens">
+        <item></item>
+        <item>@drawable/img_2</item>
+        <item>@drawable/img_3</item>
+        <item>@drawable/img_4</item>
+        <item>@drawable/img_5</item>
+        <item>@drawable/img_6</item>
+        <item>@drawable/img_7</item>
+        <item>@drawable/img_8</item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+    </array>
+</resources>

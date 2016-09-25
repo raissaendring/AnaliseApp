@@ -3,13 +3,18 @@ package com.raissa.analiseapp.Activities;
 import android.app.ProgressDialog;
 import android.content.res.TypedArray;
 import android.location.Location;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.widget.Toast;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.gson.Gson;
 import com.raissa.analiseapp.Constants;
 import com.raissa.analiseapp.Fragments.QuestaoFragment;
@@ -35,7 +40,7 @@ import pl.charmas.android.reactivelocation.ReactiveLocationProvider;
 import rx.functions.Action1;
 
 @EActivity(R.layout.activity_questoes)
-public class QuestoesActivity extends AppCompatActivity implements QuestaoFragment.InterfaceQuestoes {
+public class QuestoesActivity extends AppCompatActivity implements QuestaoFragment.InterfaceQuestoes, GoogleApiClient.OnConnectionFailedListener, GoogleApiClient.ConnectionCallbacks {
     @ViewById
     transient MyViewPager viewPager;
     @ViewById
@@ -49,6 +54,8 @@ public class QuestoesActivity extends AppCompatActivity implements QuestaoFragme
     String matriculaFiscal;
     @Extra
     String nomeFiscal;
+
+    GoogleApiClient googleApiClient;
 
 
     ArrayList<ItemQuestao> questoes;
@@ -74,7 +81,8 @@ public class QuestoesActivity extends AppCompatActivity implements QuestaoFragme
         position=0;
 
         showProgress();
-        getLocation();
+        //getLocation();
+        connectGoogleApi();
 
         initListaQuestoes();
         initToolbar();
@@ -87,6 +95,11 @@ public class QuestoesActivity extends AppCompatActivity implements QuestaoFragme
         toolbar.setTitle(R.string.app_name);
         toolbar.setTitleTextColor(getResources().getColor(R.color.white));
         setSupportActionBar(toolbar);
+    }
+
+    private synchronized void connectGoogleApi(){
+        googleApiClient = new GoogleApiClient.Builder(this,this,this).addApi(LocationServices.API).build();
+        googleApiClient.connect();
     }
 
     void initListaQuestoes(){
@@ -109,7 +122,7 @@ public class QuestoesActivity extends AppCompatActivity implements QuestaoFragme
 
     }
 
-    @Background(delay = 4000)
+    /*@Background(delay = 4000)
     void getLocation(){
         Log.d(Constants.LOG, "getLocation: ");
         ReactiveLocationProvider locationProvider = new ReactiveLocationProvider(this);
@@ -122,7 +135,7 @@ public class QuestoesActivity extends AppCompatActivity implements QuestaoFragme
             }
         });
         doneProgress();
-    }
+    }*/
 
     @UiThread
     void showProgress(){
@@ -177,6 +190,40 @@ public class QuestoesActivity extends AppCompatActivity implements QuestaoFragme
             position--;
             viewPager.setCurrentItem(position);
         }
+    }
+
+    @Override
+    public void onConnected(Bundle bundle) {
+        doneProgress();
+        Location location = LocationServices.FusedLocationApi.getLastLocation(googleApiClient);
+        if(location!=null){
+            Log.d(Constants.LOG, "SMART - Lat = " + location.getLatitude() + ", Long = " + location.getLongitude());
+            latitude = location.getLatitude();
+            longitude = location.getLongitude();
+        }else{
+            Log.d(Constants.LOG, "onConnected: " + "location null");
+            showToast(R.string.msg_location_fail);
+            finish();
+        }
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+        doneProgress();
+        Log.d(Constants.LOG, "onConnectionSuspended: ");
+    }
+
+    @Override
+    public void onConnectionFailed(ConnectionResult connectionResult) {
+        doneProgress();
+        showToast(R.string.msg_location_fail);
+        finish();
+        Log.d(Constants.LOG, "onConnectionFailed: ");
+    }
+
+    @UiThread
+    void showToast(int resId){
+        Toast.makeText(this,resId,Toast.LENGTH_LONG).show();
     }
 
 

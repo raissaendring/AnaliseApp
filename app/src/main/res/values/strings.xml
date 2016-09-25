@@ -75,6 +75,7 @@
     <string name="msg_zero_cadastros_salvos">Não há cadastros salvos</string>
     <string name="msg_enviar_fail">Não foi possível enviar os dados no momento. Verifique sua conexão e tente novamente mais tarde.</string>
     <string name="msg_enviar_success">Seus dados foram enviados com sucesso!</string>
+    <string name="msg_location_fail">Não foi possível encontrar sua localização. Verifique seu GPS e tente novamente.</string>
 
     <string name="calculadora_hint">Utilize a calculadora abaixo caso necessário.</string>
 

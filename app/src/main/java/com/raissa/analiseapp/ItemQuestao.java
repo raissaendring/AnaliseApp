@@ -1,4 +1,4 @@
-package com.raissa.analiseapp.Activities;
+package com.raissa.analiseapp;
 
 import android.content.Context;
 
@@ -10,7 +10,7 @@ import java.util.ArrayList;
  */
 
 public class ItemQuestao implements Serializable{
-    enum respostasP {Sim, Nao, Indiferente;
+    public enum respostasP {Sim, Nao, Indiferente;
 
         @Override
         public String toString() {
@@ -19,7 +19,7 @@ public class ItemQuestao implements Serializable{
             else return "";
         }
     }
-    enum respostasS {Pouco,Muito,Indiferente;
+    public enum respostasS {Pouco,Muito,Indiferente;
 
         @Override
         public String toString() {

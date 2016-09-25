@@ -1,0 +1,66 @@
+{
+  "paginas": [
+    {
+      "questoes": [
+        {
+          "texto": "É possível notar a presença de pequenos vetores como ratos, baratas, moscas ou mosquitos ou, ainda, de animais peçonhentos como cobras ou escorpiões?",
+          "respostas": [
+            {
+              "texto": "Sim",
+              "questoes": [
+                {
+                  "texto": "Qual intensidade?",
+                  "respostas": [
+                    {
+                      "texto": "Muito",
+                      "valor": 15
+                    },
+                    {
+                      "texto": "Pouco",
+                      "valor": 2
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "texto": "Não",
+              "valor": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "questoes": [
+        {
+          "texto": "É possível notar a presença de animais de médio e grande porte como cães, gatos, pombos, urubus, cavalos?",
+          "respostas": [
+            {
+              "texto": "Sim",
+              "questoes": [
+                {
+                  "texto": "Qual intensidade?",
+                  "respostas": [
+                    {
+                      "texto": "Muito",
+                      "valor": 2
+                    },
+                    {
+                      "texto": "Pouco",
+                      "valor": 1
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "texto": "Não",
+              "valor": 1
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

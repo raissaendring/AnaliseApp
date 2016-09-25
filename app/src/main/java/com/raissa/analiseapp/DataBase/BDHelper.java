@@ -11,24 +11,26 @@ import com.raissa.analiseapp.R;
  */
 public class BDHelper extends SQLiteOpenHelper {
     public BDHelper(Context context) {
-        super(context, "bd_caca_entulho_app", null, 2);
+        super(context, "bd_caca_entulho_app", null, 3);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("create table cadastros(_id text primary key, " +
-                    "nome text not null," +
-                    "matricula text not null," +
-                    "foto text not null, " +
-                    "txt text not null, " +
-                    "tabela text not null)");
+                "nome text not null," +
+                "matricula text not null," +
+                "foto text not null, " +
+                "latitude double not null," +
+                "longitude double not null," +
+                "valor int not null," +
+                "referencia text)");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         try {
             db.execSQL("drop table cadastros;");
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 

@@ -26,8 +26,10 @@ public class Banco {
         contentValues.put("nome",cadastro.getNome());
         contentValues.put("matricula",cadastro.getMatricula());
         contentValues.put("foto",cadastro.getFoto());
-        contentValues.put("txt",cadastro.getTxt());
-        contentValues.put("tabela",cadastro.getTabela());
+        contentValues.put("latitude",cadastro.getLatitude());
+        contentValues.put("longitude", cadastro.getLongitude());
+        contentValues.put("valor", cadastro.getValor());
+        contentValues.put("referencia", cadastro.getReferencia());
         db.insert("cadastros",null,contentValues);
     }
 
@@ -37,12 +39,14 @@ public class Banco {
 
     public ArrayList<ItemCadastro> todosCadastros(){
         ArrayList<ItemCadastro> cadastros = new ArrayList<>();
-        String colunas[] = {"_id","nome","matricula","foto","txt","tabela"};
+        String colunas[] = {"_id","nome","matricula","foto","latitude","longitude","valor","referencia"};
         Cursor c = db.query("cadastros",colunas,null,null,null,null,null);
         if(c.getCount()>0){
             c.moveToFirst();
             do{
-                ItemCadastro cadastro = new ItemCadastro(c.getString(0),c.getString(1),c.getString(2),c.getString(3),c.getString(4),c.getString(5));
+//                ItemCadastro cadastro = new ItemCadastro(c.getString(0),c.getString(1),c.getString(2),c.getString(3),c.getString(4),c.getString(5));
+//
+                ItemCadastro cadastro = new ItemCadastro(c.getString(0),c.getString(3),c.getString(1),c.getString(2),c.getDouble(4),c.getDouble(5),c.getInt(6),c.getString(7));
                 cadastros.add(cadastro);
             }while (c.moveToNext());
             c.close();

@@ -1,4 +1,4 @@
-package com.raissa.analiseapp.Activities;
+package com.raissa.analiseapp.Fragments;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -18,9 +18,9 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.raissa.analiseapp.ItemQuestao;
 import com.raissa.analiseapp.R;
 
-import org.androidannotations.annotations.AfterExtras;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
@@ -32,7 +32,7 @@ import java.util.ArrayList;
 
 @EFragment
 public class QuestaoFragment extends Fragment {
-   @FragmentArg
+    @FragmentArg
     Integer position;
     @FragmentArg
     ArrayList<ItemQuestao> listQuestoes;
@@ -86,9 +86,9 @@ public class QuestaoFragment extends Fragment {
     boolean respondido;
 
 
-    private InterfaceQuestoes mInterface;
+    public InterfaceQuestoes mInterface;
 
-    interface InterfaceQuestoes{
+    public interface InterfaceQuestoes{
         void onProxClicked(ItemQuestao.respostasP respostaP, ItemQuestao.respostasS respostaS, int situacao, int position);
         void onProxClicked(float tamanho, int situacao, int position);
         void finalizar();

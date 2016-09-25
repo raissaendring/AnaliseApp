@@ -1,6 +1,5 @@
 package com.raissa.analiseapp.Activities;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
@@ -20,20 +19,28 @@ import com.bumptech.glide.Glide;
 import com.raissa.analiseapp.Constants;
 import com.raissa.analiseapp.DataBase.Banco;
 import com.raissa.analiseapp.ItemCadastro;
+import com.raissa.analiseapp.ItemQuestao;
 import com.raissa.analiseapp.Mail;
 import com.raissa.analiseapp.MyPrefs_;
 import com.raissa.analiseapp.R;
+import com.raissa.analiseapp.Rest.Api;
+import com.raissa.analiseapp.Rest.CadastroAreaRequest;
+import com.raissa.analiseapp.Rest.MyErrorHandler;
 import com.raissa.analiseapp.Utils;
 
+import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Background;
+import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.Extra;
 import org.androidannotations.annotations.OnActivityResult;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
+import org.androidannotations.annotations.rest.RestService;
 import org.androidannotations.annotations.sharedpreferences.Pref;
+import org.springframework.core.io.FileSystemResource;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -76,6 +83,11 @@ public class PictureActivity extends AppCompatActivity {
     @Pref
     MyPrefs_ prefs;
 
+    @RestService
+    Api api;
+    @Bean
+    MyErrorHandler errorHandler;
+
     String folderPath = Environment.getExternalStorageDirectory() + "/AnaliseApp";
 
     String imgPath;
@@ -91,6 +103,11 @@ public class PictureActivity extends AppCompatActivity {
         progress = new ProgressDialog(this);
         File folder = new File(folderPath);
         if(!folder.exists()) folder.mkdirs();
+    }
+
+    @AfterInject
+    void afterInject(){
+        api.setRestErrorHandler(errorHandler);
     }
 
     void initToolbar(){
@@ -127,49 +144,49 @@ public class PictureActivity extends AppCompatActivity {
         }
     }
 
-    void createTxtFile(){
-        String results = "";
-        for(ItemQuestao item : listQuestoes){
-            results += item.toString();
-        }
-        results += "Situação da área analisada: " + situacaoFinal();
-        Calendar c = Calendar.getInstance(Locale.ENGLISH);
-        txtPath = folderPath + "/results_" + c.getTimeInMillis() + ".txt";
-        try {
-            FileOutputStream fOut = new FileOutputStream(txtPath);
-            OutputStreamWriter writer = new OutputStreamWriter(fOut);
-            writer.write(results);
-            writer.flush();
-            writer.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            Log.e("ANALISE APP","FILE NOT FOUND EXCEPTION");
-        } catch (IOException e) {
-            Log.e("ANALISE APP", "IO EXCEPTION");
-            e.printStackTrace();
-        }
-    }
-
-    void createTabela(){
-        Calendar c = Calendar.getInstance(Locale.ENGLISH);
-        tablePath = folderPath + "/table_" + c.getTimeInMillis() + ".txt";
-        String dados = "";
-        dados += "Coord. X\tCoord. Y\tValor\n";
-        dados += longitude+ "\t" +latitude + "\t" + valorFinal()+"\n";
-        try {
-            FileOutputStream fOut = new FileOutputStream(tablePath);
-            OutputStreamWriter writer = new OutputStreamWriter(fOut);
-            writer.write(dados);
-            writer.flush();
-            writer.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            Log.e("ANALISE APP","FILE NOT FOUND EXCEPTION");
-        } catch (IOException e) {
-            Log.e("ANALISE APP", "IO EXCEPTION");
-            e.printStackTrace();
-        }
-    }
+//    void createTxtFile(){
+//        String results = "";
+//        for(ItemQuestao item : listQuestoes){
+//            results += item.toString();
+//        }
+//        results += "Situação da área analisada: " + situacaoFinal();
+//        Calendar c = Calendar.getInstance(Locale.ENGLISH);
+//        txtPath = folderPath + "/results_" + c.getTimeInMillis() + ".txt";
+//        try {
+//            FileOutputStream fOut = new FileOutputStream(txtPath);
+//            OutputStreamWriter writer = new OutputStreamWriter(fOut);
+//            writer.write(results);
+//            writer.flush();
+//            writer.close();
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//            Log.e("ANALISE APP","FILE NOT FOUND EXCEPTION");
+//        } catch (IOException e) {
+//            Log.e("ANALISE APP", "IO EXCEPTION");
+//            e.printStackTrace();
+//        }
+//    }
+//
+//    void createTabela(){
+//        Calendar c = Calendar.getInstance(Locale.ENGLISH);
+//        tablePath = folderPath + "/table_" + c.getTimeInMillis() + ".txt";
+//        String dados = "";
+//        dados += "Coord. X\tCoord. Y\tValor\n";
+//        dados += longitude+ "\t" +latitude + "\t" + valorFinal()+"\n";
+//        try {
+//            FileOutputStream fOut = new FileOutputStream(tablePath);
+//            OutputStreamWriter writer = new OutputStreamWriter(fOut);
+//            writer.write(dados);
+//            writer.flush();
+//            writer.close();
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//            Log.e("ANALISE APP","FILE NOT FOUND EXCEPTION");
+//        } catch (IOException e) {
+//            Log.e("ANALISE APP", "IO EXCEPTION");
+//            e.printStackTrace();
+//        }
+//    }
 
     String situacaoFinal(){
         int soma=valorFinal();
@@ -193,51 +210,70 @@ public class PictureActivity extends AppCompatActivity {
     @Click
     void btnEnviarClicked(){
         if(Utils.isConnected(this)) {
-            createTxtFile();
-            createTabela();
-            enviarEmailBackground();
+//            createTxtFile();
+//            createTabela();
+//            enviarEmailBackground();
+            enviarArea();
         }else{
             showToast(R.string.msg_sem_conexao);
         }
     }
 
     @Background
-    void enviarEmailBackground(){
+    void enviarArea(){
         showProgress();
-        String body = getString(R.string.email_msg);
-        body += "\n\nNome do Fiscal: " + nomeFiscal;
-        body += "\nMatrícula: " + matriculaFiscal;
-        body += "\nPonto de referência do local: " + referencia.getText().toString();
-        Mail mail = new Mail(Constants.EMAIL,Constants.SENHA);
-        String[] to = {Constants.EMAIL};
-        mail.setTo(to);
-        mail.setBody(body);
-        mail.setSubject(getResources().getString(R.string.email_subject));
-        mail.setFrom(Constants.EMAIL);
-        try {
-            mail.addAttachment(txtPath);
-            mail.addAttachment(tablePath);
-            mail.addAttachment(imgPath);
-        } catch (Exception e) {
-            Log.e("ANALISE APP","ATTACHMENT EXCEPTION");
-            e.printStackTrace();
-        }
-        try {
-            if(mail.send()){
-                doneProgress();
-                showToast(R.string.msg_email_enviado);
-                MainActivity_.intent(this).start();
-            }
-            else{
-                doneProgress();
-                showToast(R.string.msg_email_n_enviado);
-            }
-        } catch (Exception e) {
-            doneProgress();
+        FileSystemResource file = new FileSystemResource(imgPath);
+        String response = api.saveArea(new CadastroAreaRequest(latitude,longitude,valorFinal(),nomeFiscal,matriculaFiscal,referencia.getText().toString(),file));
+        doneProgress();
+
+        if(response!=null){
+            showToast(R.string.msg_email_enviado);
+            finish();
+            MainActivity_.intent(this).start();
+        }else{
             showToast(R.string.msg_email_n_enviado);
-            e.printStackTrace();
         }
+
+        Log.d(Constants.LOG, "enviarArea: response = " + response);
     }
+
+//    @Background
+//    void enviarEmailBackground(){
+//        showProgress();
+//        String body = getString(R.string.email_msg);
+//        body += "\n\nNome do Fiscal: " + nomeFiscal;
+//        body += "\nMatrícula: " + matriculaFiscal;
+//        body += "\nPonto de referência do local: " + referencia.getText().toString();
+//        Mail mail = new Mail(Constants.EMAIL,Constants.SENHA);
+//        String[] to = {Constants.EMAIL};
+//        mail.setTo(to);
+//        mail.setBody(body);
+//        mail.setSubject(getResources().getString(R.string.email_subject));
+//        mail.setFrom(Constants.EMAIL);
+//        try {
+//            mail.addAttachment(txtPath);
+//            mail.addAttachment(tablePath);
+//            mail.addAttachment(imgPath);
+//        } catch (Exception e) {
+//            Log.e("ANALISE APP","ATTACHMENT EXCEPTION");
+//            e.printStackTrace();
+//        }
+//        try {
+//            if(mail.send()){
+//                doneProgress();
+//                showToast(R.string.msg_email_enviado);
+//                MainActivity_.intent(this).start();
+//            }
+//            else{
+//                doneProgress();
+//                showToast(R.string.msg_email_n_enviado);
+//            }
+//        } catch (Exception e) {
+//            doneProgress();
+//            showToast(R.string.msg_email_n_enviado);
+//            e.printStackTrace();
+//        }
+//    }
 
     @Click
     void btnSalvarClicked(){
@@ -246,9 +282,9 @@ public class PictureActivity extends AppCompatActivity {
         if(bd==null){
             Toast.makeText(this,R.string.msg_salvar_fail,Toast.LENGTH_SHORT).show();
         }else{
-            createTxtFile();
-            createTabela();
-            ItemCadastro cadastro = new ItemCadastro(id,nomeFiscal,matriculaFiscal,imgPath,txtPath,tablePath);
+//            createTxtFile();
+//            createTabela();
+            ItemCadastro cadastro = new ItemCadastro(id, imgPath,nomeFiscal,matriculaFiscal,latitude,longitude,valorFinal(),referencia.getText().toString());
             bd.inserir(cadastro);
             finish();
             MainActivity_.intent(this).start();

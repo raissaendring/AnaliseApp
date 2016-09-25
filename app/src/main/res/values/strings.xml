@@ -27,9 +27,9 @@
     <string name="pergunta9_2">As pessoas costumam transitar no local?</string>
     <string name="pergunta9_3">Há a ocorrência de atividades ilícitas no local?</string>
     <string name="pergunta9_4">Este ponto encontra-se próximo de creches, escolas, unidades de saúde, hospitais?</string>
-    
+
     <string name="pergunta_pneus">Além disso, pode-se notar a presença de pneus?</string>
-    
+
     <string name="dica_foto">A foto deve abordar o que há de mais relevante no local.</string>
     <string name="hint_foto_ref">Ponto de referência</string>
 
@@ -60,11 +60,11 @@
     <string name="email_subject">Nova análise feita</string>
 
     <string name="pergunta_incompleta">Responda à pergunta completamente.</string>
-    
+
     <string name="cadastro_completo">O cadastro foi efetuado com sucesso!</string>
 
     <string name="msg_email_enviado">Sua análise foi enviada.</string>
-    <string name="msg_email_n_enviado">Não foi possível enviar resultados no momento. Tente novamente mais tarde.</string>
+    <string name="msg_email_n_enviado">Não foi possível enviar resultados no momento. Tente novamente ou salve os dados para enviar uma outra hora.</string>
     <string name="msg_enviando">Enviando resultados... </string>
     <string name="msg_demora">Este processo pode demorar alguns instantes.</string>
     <string name="msg_sem_conexao">Sem conexão</string>
@@ -73,10 +73,12 @@
     <string name="msg_gps_desativado">O GPS do seu dispositivo se encontra desativado. Lembre-se que este deve estar em modo "Alta Precisão". Ative-o para continuar.</string>
     <string name="msg_salvar_fail">Não foi possível salvar o cadastro</string>
     <string name="msg_zero_cadastros_salvos">Não há cadastros salvos</string>
+    <string name="msg_enviar_fail">Não foi possível enviar os dados no momento. Verifique sua conexão e tente novamente mais tarde.</string>
+    <string name="msg_enviar_success">Seus dados foram enviados com sucesso!</string>
 
     <string name="calculadora_hint">Utilize a calculadora abaixo caso necessário.</string>
 
-<!-- TODO: Remove or change this placeholder text -->
+    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_final">FinalActivity</string>
     <string name="title_activity_picture">PictureActivity</string>

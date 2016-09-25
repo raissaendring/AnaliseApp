@@ -10,8 +10,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 
+import com.google.gson.Gson;
+import com.raissa.analiseapp.Constants;
+import com.raissa.analiseapp.Fragments.QuestaoFragment;
+import com.raissa.analiseapp.Fragments.QuestaoFragment_;
+import com.raissa.analiseapp.ItemQuestao;
 import com.raissa.analiseapp.MyViewPager;
+import com.raissa.analiseapp.PaginaQuestao;
+import com.raissa.analiseapp.Questoes;
 import com.raissa.analiseapp.R;
+import com.raissa.analiseapp.Utils;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Background;
@@ -44,6 +52,7 @@ public class QuestoesActivity extends AppCompatActivity implements QuestaoFragme
 
 
     ArrayList<ItemQuestao> questoes;
+    ArrayList<PaginaQuestao> paginas;
 
     int position;
 
@@ -85,15 +94,29 @@ public class QuestoesActivity extends AppCompatActivity implements QuestaoFragme
         for(int i=0;i<perguntas.length;i++){
             questoes.add(new ItemQuestao(this,i,perguntas[i],"Qual intensidade?"));
         }
+
+
+        //NEW
+        /*paginas = new ArrayList<>();
+        PaginaQuestao pagina = new PaginaQuestao();
+        String jsonQuestoes = Utils.loadJSONFromAsset(this,"questoes.json");
+
+        Gson gson = new Gson();
+        Questoes questoes = gson.fromJson(jsonQuestoes, Questoes.class);
+        if(questoes!=null){
+            Log.d(Constants.LOG,questoes.getPaginas().size() + " paginas");
+        }*/
+
     }
 
     @Background(delay = 4000)
     void getLocation(){
+        Log.d(Constants.LOG, "getLocation: ");
         ReactiveLocationProvider locationProvider = new ReactiveLocationProvider(this);
         locationProvider.getLastKnownLocation().subscribe(new Action1<Location>() {
             @Override
             public void call(Location location) {
-                Log.d("ANALISE APP", "SMART - Lat = " + location.getLatitude() + ", Long = " + location.getLongitude());
+                Log.d(Constants.LOG, "SMART - Lat = " + location.getLatitude() + ", Long = " + location.getLongitude());
                 latitude = location.getLatitude();
                 longitude = location.getLongitude();
             }

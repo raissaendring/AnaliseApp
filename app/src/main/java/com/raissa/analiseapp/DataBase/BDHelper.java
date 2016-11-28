@@ -3,6 +3,7 @@ package com.raissa.analiseapp.DataBase;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import com.raissa.analiseapp.R;
 
@@ -11,11 +12,12 @@ import com.raissa.analiseapp.R;
  */
 public class BDHelper extends SQLiteOpenHelper {
     public BDHelper(Context context) {
-        super(context, "bd_caca_entulho_app", null, 3);
+        super(context, "bd_caca_entulho_app", null, 5);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+        Log.d("BDHelper", "onCreate: ");
         db.execSQL("create table cadastros(_id text primary key, " +
                 "nome text not null," +
                 "matricula text not null," +

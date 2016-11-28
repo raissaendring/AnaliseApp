@@ -13,9 +13,9 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
  * Created by primelan on 9/25/16.
  */
 
-@Rest(rootUrl = "http://webservercacaentulho.ztbne8m2q8.us-east-1.elasticbeanstalk.com/", converters = {FormHttpMessageConverter.class,StringHttpMessageConverter.class})
+@Rest(rootUrl = "http://lowcost-env.b3ahqhwn6u.us-east-1.elasticbeanstalk.com/", converters = {FormHttpMessageConverter.class,StringHttpMessageConverter.class})
 public interface Api extends RestClientErrorHandling{
 
-    @Post("areas/add")
+    @Post("api/areas/add")
     String saveArea(CadastroAreaRequest request);
 }

@@ -20,7 +20,6 @@ import com.raissa.analiseapp.Constants;
 import com.raissa.analiseapp.DataBase.Banco;
 import com.raissa.analiseapp.ItemCadastro;
 import com.raissa.analiseapp.ItemQuestao;
-import com.raissa.analiseapp.Mail;
 import com.raissa.analiseapp.MyPrefs_;
 import com.raissa.analiseapp.R;
 import com.raissa.analiseapp.Rest.Api;
@@ -43,10 +42,6 @@ import org.androidannotations.annotations.sharedpreferences.Pref;
 import org.springframework.core.io.FileSystemResource;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
@@ -222,8 +217,8 @@ public class PictureActivity extends AppCompatActivity {
     @Background
     void enviarArea(){
         showProgress();
-        FileSystemResource file = new FileSystemResource(imgPath);
-        String response = api.saveArea(new CadastroAreaRequest(latitude,longitude,valorFinal(),nomeFiscal,matriculaFiscal,referencia.getText().toString(),file));
+        FileSystemResource imagemFile = new FileSystemResource(imgPath);
+        String response = api.saveArea(new CadastroAreaRequest(latitude,longitude,valorFinal(),nomeFiscal,matriculaFiscal,referencia.getText().toString(),imagemFile));
         doneProgress();
 
         if(response!=null){

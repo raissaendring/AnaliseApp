@@ -15,19 +15,15 @@ import android.widget.Toast;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
-import com.google.gson.Gson;
 import com.raissa.analiseapp.Constants;
 import com.raissa.analiseapp.Fragments.QuestaoFragment;
 import com.raissa.analiseapp.Fragments.QuestaoFragment_;
 import com.raissa.analiseapp.ItemQuestao;
 import com.raissa.analiseapp.MyViewPager;
 import com.raissa.analiseapp.PaginaQuestao;
-import com.raissa.analiseapp.Questoes;
 import com.raissa.analiseapp.R;
-import com.raissa.analiseapp.Utils;
 
 import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.Extra;
 import org.androidannotations.annotations.UiThread;
@@ -35,9 +31,6 @@ import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.res.StringArrayRes;
 
 import java.util.ArrayList;
-
-import pl.charmas.android.reactivelocation.ReactiveLocationProvider;
-import rx.functions.Action1;
 
 @EActivity(R.layout.activity_questoes)
 public class QuestoesActivity extends AppCompatActivity implements QuestaoFragment.InterfaceQuestoes, GoogleApiClient.OnConnectionFailedListener, GoogleApiClient.ConnectionCallbacks {

@@ -37,6 +37,11 @@
             android:layout_height="wrap_content"
             android:id="@+id/matricula"
             android:inputType="number"/>
+        <CheckBox
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Salvar credenciais"
+            android:id="@+id/salvar"/>
         <Button
             style="@style/ButtonStyle"
             android:text="@string/btn_comecar"
